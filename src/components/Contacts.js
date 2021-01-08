@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types'
 
 import css from "./style.module.css";
 
@@ -40,12 +41,14 @@ class Contact extends Component {
   }
 }
 
-export default Contact;
+// ToDo props defoult & props type
+Contact.defaultProps = {
+  contact: [{ id: "id-0", name: "your name", number: "your number" }],
+  filter: '',
+};
 
-// this.props.users.contacts.map((item) => {
-//   return (
-//     <li key={item.id}>
-//       {item.name}: {item.number}
-//     </li>
-//   );
-// })
+Contact.propTypes  = {
+  users: PropTypes.object,
+};
+
+export default Contact;

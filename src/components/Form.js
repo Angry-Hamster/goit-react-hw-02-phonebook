@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from "uuid";
 
 import css from "./style.module.css";
@@ -54,5 +55,15 @@ class Form extends Component {
     );
   }
 }
+
+// ToDo props defoult & props type
+Form.defaultProps = {
+  contact: [{ id: "id-0", name: "your name", number: "your number" }],
+  filter: '',
+};
+
+Form.propTypes  = {
+  users: PropTypes.object,
+};
 
 export default Form;
