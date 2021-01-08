@@ -19,7 +19,7 @@ class App extends Component {
 
   // ToDo methods
   addNewContact = (user) => {
-    this.setState((prev) => ({ contacts: [...prev.contacts, user] }));
+    this.setState((prev) => ({ contacts: [...prev.contacts, user]}));
   };
 
   getFilter = (filter) => {
@@ -28,15 +28,7 @@ class App extends Component {
 
   deleteContact = (id) => {
     const { contacts } = this.state;
-    let newContacts = [];
-
-    contacts.map((e) => {
-      if (contacts.find((element) => element.id == id) != e) {
-        newContacts.push(e);
-      }
-    });
-
-    this.setState({ contacts: newContacts });
+    this.setState({ contacts: contacts.filter(w => w.id != id) });
   };
 
   // ToDo DOM tree

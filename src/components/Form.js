@@ -6,30 +6,30 @@ import css from "./style.module.css";
 class Form extends Component {
   // ToDo contact
   state = {
-    name: "",
-    id: "",
-    number: "",
+    contact: {
+      name: "",
+      id: "",
+      number: "",
+    }
   };
 
   // ToDo methods
   handleChange = (e) => {
     const { name, value } = e.target;
 
-    this.setState({ [name]: value });
-    this.setState({ id: uuidv4() });
+    this.setState((prev) => ({ contact: { ...prev.contact, [name]: value, id: uuidv4() } }));
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
     const { contacts } = this.props.users;
+    const { contact } = this.state
 
-    contacts.find((element) => element.name.toLowerCase() == this.state.name.toLowerCase()) == undefined
-      ? this.props.addNewContact(this.state)
-      : alert(`${this.state.name} is alredy in contacs`);
+    contacts.filter((w) => w.name.toLowerCase() == contact.name.toLowerCase()).length == 0
+      ? this.props.addNewContact(contact)
+      : alert(`${contact.name} is alredy in contacs`);
 
-    // ? clear form
-    e.target.children[1].value = "";
-    e.target.children[3].value = "";
+    e.target.reset()
   };
 
   // ToDo DOM tree
