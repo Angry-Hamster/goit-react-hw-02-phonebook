@@ -14,7 +14,7 @@ class Filter extends Component {
   render() {
     return (
       <div className={css.filter}>
-        <label htmlFor="filter">Find contacts buy name</label>
+        <label htmlFor="filter">Find contacts by name</label>
         <input name="filter" id="filter" onChange={this.handleChange} />
       </div>
     );

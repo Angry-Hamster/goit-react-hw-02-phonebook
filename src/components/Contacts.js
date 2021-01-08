@@ -6,18 +6,11 @@ class Contact extends Component {
   // ToDo function
   handlefilter = (prop) => {
     const { filter, contacts } = prop;
-    let filteredContact = [];
 
     if (filter == "") {
       return contacts;
     } else {
-      contacts.map((item) => {
-        if (item.name.toLowerCase().includes(filter.toLowerCase())) {
-          filteredContact.push({ id: item.id, name: item.name, number: item.number });
-        }
-      });
-
-      return filteredContact;
+      return contacts.filter((w) => w.name.toLowerCase().includes(filter.toLowerCase()));
     }
   };
 
@@ -38,10 +31,7 @@ class Contact extends Component {
                 {item.name}: {item.number}
               </span>
 
-              <button onClick={this.handleDelete}>
-                {" "}
-                Delete{" "}
-              </button>
+              <button onClick={this.handleDelete}> Delete </button>
             </li>
           );
         })}
