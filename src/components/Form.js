@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 import css from "./style.module.css";
@@ -7,30 +7,35 @@ import css from "./style.module.css";
 class Form extends Component {
   // ToDo contact
   state = {
-    contact: {
-      name: "",
-      id: "",
-      number: "",
-    }
+    name: "",
+    number: "",
   };
 
   // ToDo methods
   handleChange = (e) => {
     const { name, value } = e.target;
 
-    this.setState((prev) => ({ contact: { ...prev.contact, [name]: value, id: uuidv4() } }));
+    this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { contacts } = this.props.users;
-    const { contact } = this.state
+    const { name, number } = this.state;
 
-    contacts.filter((w) => w.name.toLowerCase() == contact.name.toLowerCase()).length == 0
+    const contact = { name: name, number: number, id: uuidv4() };
+
+    this.props.users.filter((w) => w.name.toLowerCase() == name.toLowerCase()).length == 0
       ? this.props.addNewContact(contact)
-      : alert(`${contact.name} is alredy in contacs`);
+      : alert(`${name} is alredy in contacs`);
 
-    e.target.reset()
+    this.claerForm();
+  };
+
+  claerForm = () => {
+    this.setState({
+      name: "",
+      number: "",
+    });
   };
 
   // ToDo DOM tree
@@ -38,7 +43,15 @@ class Form extends Component {
     return (
       <form className={css.form} onSubmit={this.handleSubmit}>
         <label htmlFor="name">Name</label>
-        <input id="name" name="name" type="text" placeholder="Enter your name" onChange={this.handleChange} required />
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Enter your name"
+          value={this.state.name}
+          onChange={this.handleChange}
+          required
+        />
 
         <label htmlFor="number">Phone</label>
         <input
@@ -46,6 +59,7 @@ class Form extends Component {
           name="number"
           type="tel"
           placeholder="Enter your phone"
+          value={this.state.number}
           onChange={this.handleChange}
           required
         />
@@ -58,12 +72,11 @@ class Form extends Component {
 
 // ToDo props defoult & props type
 Form.defaultProps = {
-  contact: [{ id: "id-0", name: "your name", number: "your number" }],
-  filter: '',
+  users: [{ id: "id-0", name: "your name", number: "your number" }],
 };
 
-Form.propTypes  = {
-  users: PropTypes.object,
+Form.propTypes = {
+  users: PropTypes.array,
 };
 
 export default Form;
